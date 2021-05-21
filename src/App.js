@@ -21,6 +21,16 @@ const App = () => {
     setNewMood(undefined);
   };
 
+  const removeMoodForToday = () => {
+    let tempMoods = [...moods];
+    let index = tempMoods.findIndex(
+      (m) => m.date.toDateString() === currentDate.toDateString()
+    );
+    tempMoods.splice(index, 1);
+    setMoods(tempMoods);
+    setNewMood(undefined);
+  };
+
   const checkDateIsToday = (date) => {
     let today = new Date().toDateString();
     if (date.toDateString() === today) setIsToday(true);
@@ -48,9 +58,10 @@ const App = () => {
   }, [currentDate, moods]);
 
   return (
-    <div className="container mx-auto p-3">
+    <div className="container containerWidth mx-auto p-3">
       <MoodInput
         addMood={addMoodForToday}
+        removeMood={removeMoodForToday}
         date={currentDate}
         mood={currentIndex !== -1 ? moods[currentIndex]?.mood : undefined}
         newMood={newMood}

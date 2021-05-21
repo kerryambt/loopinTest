@@ -1,0 +1,23 @@
+.containerWidth {
+  max-width: 800px !important;
+}
+
+.bounceIcon {
+  top: 1.5rem;
+  left: 0.75rem;
+  font-size: 5rem;
+  opacity: 0.5;
+  animation: bounceIconAnimation linear 0.5s;
+}
+
+@keyframes bounceIconAnimation {
+  0% {
+    margin-top: 0;
+  }
+  50% {
+    margin-top: -0.5rem;
+  }
+  100% {
+    margin-top: 0;
+  }
+}

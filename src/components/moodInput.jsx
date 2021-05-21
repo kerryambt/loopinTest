@@ -1,10 +1,23 @@
 import React from "react";
-import CheckedDate from "./common/checkedDate";
+import DateSelector from "./common/dateSelector";
+import DayOfWeekText from "./common/dayOfWeekText";
+import HowAreYouText from "./common/howAreYouText";
 import MoodButton from "./common/moodButton";
+import MoodIcon from "./common/moodIcon";
+import SubmitButton from "./common/submitButton";
+import EditButton from "./common/editButton";
 
 const MoodInput = (props) => {
-  const { date, mood, addMood, isToday, changeDate, newMood, setNewMood } =
-    props;
+  const {
+    date,
+    mood,
+    addMood,
+    removeMood,
+    isToday,
+    changeDate,
+    newMood,
+    setNewMood,
+  } = props;
 
   const getMoodColour = (mood) => {
     if (mood === "happy") return "success";
@@ -15,32 +28,28 @@ const MoodInput = (props) => {
 
   return (
     <div
-      className={`row m-0 p-3 border rounded bg-${getMoodColour(mood)} text-${
-        mood ? "white" : "black"
-      }`}
+      className={`row m-0 p-3 border position-relative rounded bg-${getMoodColour(
+        mood
+      )} text-${mood ? "white" : "black"}`}
     >
       <div className="col-12 m-0 p-0 text-end">
         {date ? (
-          <CheckedDate
-            date={date}
-            isToday={isToday}
-            colour={mood ? "light" : "dark"}
-            changeDate={changeDate}
-          />
+          <>
+            <DayOfWeekText date={date} isToday={isToday} />
+            <DateSelector
+              date={date}
+              isToday={isToday}
+              colour={mood ? "light" : "dark"}
+              changeDate={changeDate}
+            />
+          </>
         ) : (
           ""
         )}
       </div>
       <div className="col-12 m-0 pb-2 pt-4 px-0">
-        <h4>
-          {mood
-            ? `Your mood ${isToday ? "is" : "was"} ${
-                mood === "neutral" ? "okay" : mood
-              }.`
-            : isToday
-            ? "How are you feeling today?"
-            : "How did you feel on this day?"}
-        </h4>
+        <HowAreYouText mood={mood} isToday={isToday} />
+        <MoodIcon mood={mood} />
       </div>
       {!mood ? (
         <>
@@ -72,17 +81,17 @@ const MoodInput = (props) => {
             />
           </div>
           <div className="col-12 col-lg-4 m-0 pt-3 px-0">
-            <button
-              className="btn btn-secondary w-100"
+            <SubmitButton
               disabled={!newMood}
               onClick={() => addMood(newMood)}
-            >
-              {newMood ? "Submit your mood" : "Please select your mood"}
-            </button>
+              label={newMood ? "Submit your mood" : "Please select your mood"}
+            />
           </div>
         </>
       ) : (
-        ""
+        <div className="col-12 col-lg-4 m-0 p-0">
+          <EditButton removeMood={removeMood} />
+        </div>
       )}
     </div>
   );
