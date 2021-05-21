@@ -1,29 +1,40 @@
 import React, { useState, useEffect } from "react";
 
 const CheckedDate = (props) => {
-  const [currentDay, setCurrentDay] = useState("Today");
+  const [currentDay, setCurrentDay] = useState();
   const [formattedDate, setFormattedDate] = useState();
 
-  const { date } = props;
+  let { date, isToday, colour, changeDate } = props;
 
   useEffect(() => {
-    const checkDate = new Date().toDateString();
-    if (date.toDateString() === checkDate) setCurrentDay("Today");
-    else {
-      const options = { weekday: "long" };
-      setCurrentDay(new Intl.DateTimeFormat("en-US", options).format(date));
-    }
-
+    const options = { weekday: "long" };
+    setCurrentDay(new Intl.DateTimeFormat("en-US", options).format(date));
     setFormattedDate(
       new Intl.DateTimeFormat("en-GB", { dateStyle: "full" }).format(date)
     );
   }, [date]);
 
   return (
-    <>
-      <h4>{currentDay}</h4>
+    <div>
+      <h2>{isToday ? "Today" : currentDay}</h2>
+
+      <button
+        className={`btn btn-sm btn-outline-${colour} me-2`}
+        onClick={() => changeDate(-1)}
+      >
+        <i className="fas fa-chevron-left"></i>
+      </button>
+
       {formattedDate}
-    </>
+
+      <button
+        className={`btn btn-sm btn-outline-${colour} ms-2`}
+        disabled={isToday}
+        onClick={() => changeDate(1)}
+      >
+        <i className="fas fa-chevron-right"></i>
+      </button>
+    </div>
   );
 };
 

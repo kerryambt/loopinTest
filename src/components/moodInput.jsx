@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import CheckedDate from "./common/checkedDate";
 import MoodButton from "./common/moodButton";
 
 const MoodInput = (props) => {
-  const [newMood, setNewMood] = useState(undefined);
-
-  const { date, mood, addMood } = props;
+  const { date, mood, addMood, isToday, changeDate, newMood, setNewMood } =
+    props;
 
   const getMoodColour = (mood) => {
     if (mood === "happy") return "success";
@@ -21,13 +20,26 @@ const MoodInput = (props) => {
       }`}
     >
       <div className="col-12 m-0 p-0 text-end">
-        {date ? <CheckedDate date={date} /> : ""}
+        {date ? (
+          <CheckedDate
+            date={date}
+            isToday={isToday}
+            colour={mood ? "light" : "dark"}
+            changeDate={changeDate}
+          />
+        ) : (
+          ""
+        )}
       </div>
-      <div className="col-12 m-0 py-2 px-0">
+      <div className="col-12 m-0 pb-2 pt-4 px-0">
         <h4>
           {mood
-            ? `Your mood is ${mood === "neutral" ? "okay" : mood}`
-            : "How are you feeling today?"}
+            ? `Your mood ${isToday ? "is" : "was"} ${
+                mood === "neutral" ? "okay" : mood
+              }.`
+            : isToday
+            ? "How are you feeling today?"
+            : "How did you feel on this day?"}
         </h4>
       </div>
       {!mood ? (
@@ -65,7 +77,7 @@ const MoodInput = (props) => {
               disabled={!newMood}
               onClick={() => addMood(newMood)}
             >
-              {newMood ? "Submit your mood" : "Please select your current mood"}
+              {newMood ? "Submit your mood" : "Please select your mood"}
             </button>
           </div>
         </>
