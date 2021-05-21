@@ -12,7 +12,7 @@ const HowAreYouText = (props) => {
   }, [mood]);
 
   return (
-    <>
+    <div>
       <h3>
         {mood ? (
           <>
@@ -26,8 +26,8 @@ const HowAreYouText = (props) => {
           "How did you feel on this day?"
         )}
       </h3>
-      {mood ? subText : ""}
-    </>
+      <span data-testid="subText">{mood ? subText : ""}</span>
+    </div>
   );
 };
 

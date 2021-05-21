@@ -12,10 +12,11 @@ const DateSelector = (props) => {
   }, [date]);
 
   return (
-    <>
+    <div data-testid="dateSelector">
       <button
         className={`btn btn-sm btn-outline-${colour} me-2`}
         onClick={() => changeDate(-1)}
+        data-testid="buttonLeft"
       >
         <i className="fas fa-chevron-left"></i>
       </button>
@@ -26,10 +27,11 @@ const DateSelector = (props) => {
         className={`btn btn-sm btn-outline-${colour} ms-2`}
         disabled={isToday}
         onClick={() => changeDate(1)}
+        data-testid="buttonRight"
       >
         <i className="fas fa-chevron-right"></i>
       </button>
-    </>
+    </div>
   );
 };
 

@@ -10,7 +10,7 @@ const DayOfWeekText = (props) => {
     setCurrentDay(new Intl.DateTimeFormat("en-US", options).format(date));
   }, [date]);
 
-  return <h2>{isToday ? "Today" : currentDay}</h2>;
+  return <h2 data-testid="dayOfWeekText">{isToday ? "Today" : currentDay}</h2>;
 };
 
 export default DayOfWeekText;
